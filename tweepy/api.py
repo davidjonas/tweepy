@@ -9,6 +9,7 @@ from tweepy.binder import bind_api
 from tweepy.error import TweepError
 from tweepy.parsers import ModelParser
 from tweepy.utils import list_to_csv
+from tweepy.throttle import RateLimitStorage
 
 
 class API(object):
@@ -32,6 +33,7 @@ class API(object):
         self.retry_errors = retry_errors
         self.timeout = timeout
         self.parser = parser or ModelParser()
+        self.rateLimits = RateLimitStorage()
 
     """ statuses/home_timeline """
     home_timeline = bind_api(

@@ -163,8 +163,12 @@ def bind_api(**config):
                 time.sleep(self.retry_delay)
                 retries_performed += 1
 
+            #Update the rate limit storage on the api for this specific call
+            self.api.rateLimits.update(self.path, resp)
+
             # If an error was returned, throw an exception
             self.api.last_response = resp
+            
             if resp.status != 200:
                 try:
                     error_msg = self.api.parser.parse_error(resp.read())
